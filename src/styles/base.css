@@ -1,0 +1,5 @@
+@layer base {
+  body {
+    @apply font-poppins font-medium text-[14px] leading-[115%] text-grays bg-white;
+  }
+}

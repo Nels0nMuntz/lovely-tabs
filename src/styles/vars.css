@@ -1,0 +1,12 @@
+@layer base {
+  :root {
+    --white: #FEFEFE; 
+    --blue: #4690E2; 
+    --blue-light: #FEFEFE; 
+    --grays: #7F858D;
+    --grays-dark: #343434;
+    --grays-muted: rgba(174, 182, 206, 0.2);
+    --silver: "#7F858D";
+    --red: #EE3F3E;
+  }
+}
