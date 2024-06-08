@@ -24,14 +24,13 @@ module.exports = {
         "3xl": "1600px",
       },
       colors: {
-        "white": "var(--white)",
-        "blue": "var(--blue)",
+        "off-white": "var(--off-white)",
+        blue: "var(--blue)",
         "blue-light": "var(--blue-light)",
-        "grays": "var(--grays)",
+        grays: "var(--grays)",
         "grays-dark": "var(--grays-dark)",
         "grays-muted": "var(--grays-muted)",
-        "silver": "var(--silver)",
-        "red": "var(--red)",
+        red: "var(--red)",
       },
       borderRadius: {
         lg: `var(--radius)`,
@@ -39,7 +38,13 @@ module.exports = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        poppins: ['Poppins'],
+        poppins: ["Poppins"],
+      },
+      width: {
+        sidebar: "var(--sidebar-width)",
+      },
+      height: {
+        header: "var(--header-height)",
       },
     },
   },
