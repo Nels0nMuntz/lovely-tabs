@@ -7,11 +7,13 @@ export const MainLayout: React.FC = () => {
   return (
     <div className='flex min-h-[100dvh] w-full'>
       <Sidebar />
-      <div className='w-[calc(100vw-var(--sidebar-width))] flex  flex-grow flex-col'>
+      <div className='flex w-full flex-grow  flex-col sm:w-[calc(100vw-var(--sidebar-width))]'>
         <Header />
         <main className='flex w-full flex-grow flex-col'>
           <TabList />
-          <Outlet />
+          <section className='flex-grow bg-blue-light p-6'>
+            <Outlet />
+          </section>
         </main>
       </div>
     </div>

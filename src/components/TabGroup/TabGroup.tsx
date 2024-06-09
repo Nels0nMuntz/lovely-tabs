@@ -5,7 +5,6 @@ import {
   KeyboardSensor,
   PointerSensor,
   TouchSensor,
-  UniqueIdentifier,
   closestCenter,
   useSensor,
   useSensors,
@@ -24,7 +23,6 @@ import {
 import { useSelectedTabContext } from "@/contexts";
 import type { Tab as ITab } from "../Tab/types";
 import { Tab } from "../Tab/Tab";
-import { IconName } from "@/constants";
 import { useNavigate } from "react-router-dom";
 
 const dropAnimationConfig: DropAnimation = {
@@ -97,6 +95,19 @@ export const TabGroup: React.FC<Props> = ({ items, setItems, pinned }) => {
   const handleSelectTab = (id: string) => {
     setSelectedTabId(id);
   };
+  const handleCloseTab = (id: string) => {
+    if(id === selectedTabId) {
+      const currentTabIndex = getIndex(id);
+      if(items[currentTabIndex + 1]) {
+        setSelectedTabId(items[currentTabIndex + 1].id)
+      } else if(items[currentTabIndex - 1]) {
+        setSelectedTabId(items[currentTabIndex - 1].id)
+      } else {
+        setSelectedTabId('')
+      }
+    }
+    setItems(items => items.filter(item => item.id !== id))
+  };
 
   return (
     <DndContext
@@ -115,6 +126,7 @@ export const TabGroup: React.FC<Props> = ({ items, setItems, pinned }) => {
             selected={tab.id === selectedTabId}
             pinned={pinned}
             onSelect={handleSelectTab}
+            onClose={handleCloseTab}
           />
         ))}
       </SortableContext>
@@ -126,6 +138,7 @@ export const TabGroup: React.FC<Props> = ({ items, setItems, pinned }) => {
               selected={activeId === selectedTabId}
               pinned={pinned}
               onSelect={handleSelectTab}
+              onClose={handleCloseTab}
               icon={activeItem.icon}
               id={activeItem.id}
               title={activeItem.title}

@@ -1,0 +1,1 @@
+export { isElementScrollable } from "./isElementScrollable";

@@ -1,11 +1,17 @@
 export interface IconsProps {
   className?: string;
 }
-export type IconName = keyof typeof ICONS;
 
 export const ICONS = {
   dashboard: (props: IconsProps) => (
-    <svg width='16' height='16' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg' {...props}>
+    <svg
+      width='16'
+      height='16'
+      viewBox='0 0 16 16'
+      xmlns='http://www.w3.org/2000/svg'
+      aria-hidden='true'
+      {...props}
+    >
       <g clipPath='url(#clip0_1_311)'>
         <path
           d='M7.33333 7.33333H0V2C0 1.46957 0.210714 0.960859 0.585786 0.585786C0.960859 0.210714 1.46957 0 2 0L7.33333 0V7.33333ZM1.33333 6H6V1.33333H2C1.82319 1.33333 1.65362 1.40357 1.5286 1.5286C1.40357 1.65362 1.33333 1.82319 1.33333 2V6Z'
@@ -38,6 +44,7 @@ export const ICONS = {
       viewBox='0 0 16 16'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
+      aria-hidden='true'
       {...props}
     >
       <g clipPath='url(#clip0_1_785)'>
@@ -60,6 +67,7 @@ export const ICONS = {
       viewBox='0 0 16 16'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
+      aria-hidden='true'
       {...props}
     >
       <g clipPath='url(#clip0_1_741)'>
@@ -82,6 +90,7 @@ export const ICONS = {
       viewBox='0 0 16 16'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
+      aria-hidden='true'
       {...props}
     >
       <g clipPath='url(#clip0_1_272)'>
@@ -104,6 +113,7 @@ export const ICONS = {
       viewBox='0 0 16 16'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
+      aria-hidden='true'
       {...props}
     >
       <g clipPath='url(#clip0_1_275)'>
@@ -134,6 +144,7 @@ export const ICONS = {
       viewBox='0 0 16 16'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
+      aria-hidden='true'
       {...props}
     >
       <g clipPath='url(#clip0_1_278)'>
@@ -156,6 +167,7 @@ export const ICONS = {
       viewBox='0 0 16 16'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
+      aria-hidden='true'
       {...props}
     >
       <g clipPath='url(#clip0_1_282)'>
@@ -178,6 +190,7 @@ export const ICONS = {
       viewBox='0 0 16 16'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
+      aria-hidden='true'
       {...props}
     >
       <path
@@ -195,6 +208,7 @@ export const ICONS = {
       viewBox='0 0 16 16'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
+      aria-hidden='true'
       {...props}
     >
       <g clipPath='url(#clip0_1_763)'>
@@ -217,6 +231,7 @@ export const ICONS = {
       viewBox='0 0 16 16'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
+      aria-hidden='true'
       {...props}
     >
       <g clipPath='url(#clip0_1_767)'>
@@ -239,6 +254,7 @@ export const ICONS = {
       viewBox='0 0 16 16'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
+      aria-hidden='true'
       {...props}
     >
       <g clipPath='url(#clip0_1_771)'>
@@ -261,6 +277,7 @@ export const ICONS = {
       viewBox='0 0 16 16'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
+      aria-hidden='true'
       {...props}
     >
       <g clipPath='url(#clip0_1_775)'>
@@ -294,6 +311,7 @@ export const ICONS = {
       viewBox='0 0 16 16'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
+      aria-hidden='true'
       {...props}
     >
       <g clipPath='url(#clip0_1_301)'>
@@ -328,6 +346,7 @@ export const ICONS = {
       viewBox='0 0 16 16'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
+      aria-hidden='true'
       {...props}
     >
       <g clipPath='url(#clip0_1_305)'>
@@ -341,6 +360,35 @@ export const ICONS = {
           <rect width='16' height='16' fill='white' />
         </clipPath>
       </defs>
+    </svg>
+  ),
+  chevronDown: (props: IconsProps) => (
+    <svg
+      width='9'
+      height='6'
+      viewBox='0 0 9 6'
+      fill='none'
+      xmlns='http://www.w3.org/2000/svg'
+      aria-hidden='true'
+      {...props}
+    >
+      <path d='M4.5 5.55L0 1.05L1.05 0L4.5 3.45L7.95 0L9 1.05L4.5 5.55Z' fill='currentColor' />
+    </svg>
+  ),
+  close: (props: IconsProps) => (
+    <svg
+      width='16'
+      height='16'
+      viewBox='0 0 16 16'
+      fill='none'
+      xmlns='http://www.w3.org/2000/svg'
+      aria-hidden='true'
+      {...props}
+    >
+      <path
+        d='M5.6 11.3333L8 8.93331L10.4 11.3333L11.3333 10.4L8.93333 7.99998L11.3333 5.59998L10.4 4.66665L8 7.06665L5.6 4.66665L4.66667 5.59998L7.06667 7.99998L4.66667 10.4L5.6 11.3333ZM8 14.6666C7.07778 14.6666 6.21111 14.4916 5.4 14.1416C4.58889 13.7916 3.88333 13.3166 3.28333 12.7166C2.68333 12.1166 2.20833 11.4111 1.85833 10.6C1.50833 9.78887 1.33333 8.9222 1.33333 7.99998C1.33333 7.07776 1.50833 6.21109 1.85833 5.39998C2.20833 4.58887 2.68333 3.88331 3.28333 3.28331C3.88333 2.68331 4.58889 2.20831 5.4 1.85831C6.21111 1.50831 7.07778 1.33331 8 1.33331C8.92222 1.33331 9.78889 1.50831 10.6 1.85831C11.4111 2.20831 12.1167 2.68331 12.7167 3.28331C13.3167 3.88331 13.7917 4.58887 14.1417 5.39998C14.4917 6.21109 14.6667 7.07776 14.6667 7.99998C14.6667 8.9222 14.4917 9.78887 14.1417 10.6C13.7917 11.4111 13.3167 12.1166 12.7167 12.7166C12.1167 13.3166 11.4111 13.7916 10.6 14.1416C9.78889 14.4916 8.92222 14.6666 8 14.6666Z'
+        fill='#EE3F3E'
+      />
     </svg>
   ),
 };

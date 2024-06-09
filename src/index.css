@@ -1,3 +1,5 @@
+@import 'simplebar-react/dist/simplebar.min.css';
+
 @import "tailwindcss/base";
 @import "./styles/fonts.css";
 @import "./styles/vars.css";

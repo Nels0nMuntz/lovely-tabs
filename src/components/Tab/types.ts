@@ -1,5 +1,5 @@
-import { IconName } from "@/constants";
 import { UniqueIdentifier } from "@dnd-kit/core";
+import { IconName } from "../Icon/types";
 
 export type UniqueId = string;
 
@@ -14,5 +14,6 @@ export interface TabProps extends Tab {
   pinned?: boolean;
   selected?: boolean;
   dragging?: boolean;
-  onSelect: (id: UniqueIdentifier) => void;
+  onSelect: (id: string) => void;
+  onClose: (id: string) => void;
 }
