@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { useNavigate } from "react-router-dom";
 import {
   DndContext,
   KeyboardSensor,
@@ -16,14 +17,13 @@ import {
 } from "@dnd-kit/core";
 import {
   SortableContext,
-  arrayMove,
   horizontalListSortingStrategy,
   sortableKeyboardCoordinates,
 } from "@dnd-kit/sortable";
 import { useSelectedTabContext } from "@/contexts";
-import type { Tab as ITab } from "../Tab/types";
+import { TabGroupProps } from "./types";
+import { Tab as ITab } from "../Tab/types";
 import { Tab } from "../Tab/Tab";
-import { useNavigate } from "react-router-dom";
 
 const dropAnimationConfig: DropAnimation = {
   sideEffects: defaultDropAnimationSideEffects({
@@ -35,13 +35,15 @@ const dropAnimationConfig: DropAnimation = {
   }),
 };
 
-interface Props {
-  items: ITab[];
-  setItems: React.Dispatch<React.SetStateAction<ITab[]>>;
-  pinned?: boolean;
-}
-
-export const TabGroup: React.FC<Props> = ({ items, setItems, pinned }) => {
+export const TabGroup: React.FC<TabGroupProps> = ({
+  items,
+  pinned,
+  onMoveTab,
+  onCloseTab,
+  onPin,
+  onUnpin,
+  onChangeTabVisibility,
+}) => {
   const navigate = useNavigate();
   const [activeId, setActiveId] = useState<string | null>(null);
   const { selectedTabId, setSelectedTabId } = useSelectedTabContext();
@@ -57,7 +59,6 @@ export const TabGroup: React.FC<Props> = ({ items, setItems, pinned }) => {
     }),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
-
     }),
     useSensor(TouchSensor, {
       activationConstraint: {
@@ -71,9 +72,6 @@ export const TabGroup: React.FC<Props> = ({ items, setItems, pinned }) => {
   const getPosition = (id: string) => getIndex(id) + 1;
   const activeIndex = activeId ? getIndex(activeId) : -1;
   const activeItem = items[activeIndex];
-  const handleRemoveTab = (id: string) => {
-    setItems((items) => items.filter((item) => item.id !== id));
-  };
 
   const handleDragStart = ({ active }: DragStartEvent) => {
     if (!active) {
@@ -88,7 +86,7 @@ export const TabGroup: React.FC<Props> = ({ items, setItems, pinned }) => {
     if (over) {
       const overIndex = getIndex(over.id as string);
       if (activeIndex !== overIndex) {
-        setItems((items) => arrayMove(items, activeIndex, overIndex));
+        onMoveTab(activeIndex, overIndex);
       }
     }
   };
@@ -96,17 +94,17 @@ export const TabGroup: React.FC<Props> = ({ items, setItems, pinned }) => {
     setSelectedTabId(id);
   };
   const handleCloseTab = (id: string) => {
-    if(id === selectedTabId) {
+    if (id === selectedTabId) {
       const currentTabIndex = getIndex(id);
-      if(items[currentTabIndex + 1]) {
-        setSelectedTabId(items[currentTabIndex + 1].id)
-      } else if(items[currentTabIndex - 1]) {
-        setSelectedTabId(items[currentTabIndex - 1].id)
+      if (items[currentTabIndex + 1]) {
+        setSelectedTabId(items[currentTabIndex + 1].id);
+      } else if (items[currentTabIndex - 1]) {
+        setSelectedTabId(items[currentTabIndex - 1].id);
       } else {
-        setSelectedTabId('')
+        setSelectedTabId("");
       }
     }
-    setItems(items => items.filter(item => item.id !== id))
+    onCloseTab(id);
   };
 
   return (
@@ -118,15 +116,18 @@ export const TabGroup: React.FC<Props> = ({ items, setItems, pinned }) => {
       onDragCancel={() => setActiveId(null)}
     >
       <SortableContext items={items} strategy={horizontalListSortingStrategy}>
-        {items.map((tab) => (
+        {items.map((tab, index) => (
           <Tab
             key={tab.id}
             {...tab}
+            onChangeTabVisibility={onChangeTabVisibility}
             active={tab.id === activeId}
             selected={tab.id === selectedTabId}
             pinned={pinned}
             onSelect={handleSelectTab}
             onClose={handleCloseTab}
+            onPin={onPin}
+            onUnpin={onUnpin}
           />
         ))}
       </SortableContext>
@@ -143,6 +144,8 @@ export const TabGroup: React.FC<Props> = ({ items, setItems, pinned }) => {
               id={activeItem.id}
               title={activeItem.title}
               dragging={true}
+              onPin={onPin}
+              onUnpin={onUnpin}
             />
           ) : null}
         </DragOverlay>,

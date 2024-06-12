@@ -16,4 +16,7 @@ export interface TabProps extends Tab {
   dragging?: boolean;
   onSelect: (id: string) => void;
   onClose: (id: string) => void;
+  onPin?: (id: string) => void;
+  onUnpin?: (id: string) => void;
+  onChangeTabVisibility?: (tab: Tab, isVisible: boolean) => void;
 }

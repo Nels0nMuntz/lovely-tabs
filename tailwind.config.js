@@ -59,12 +59,13 @@ module.exports = {
         },
         "off-white": "var(--off-white)",
         "white-muted": "var(--white-muted)",
-        blue: "var(--blue)",
+        "blue": "var(--blue)",
         "blue-light": "var(--blue-light)",
-        grays: "var(--grays)",
+        "grays": "var(--grays)",
         "grays-dark": "var(--grays-dark)",
         "grays-muted": "var(--grays-muted)",
-        red: "var(--red)",
+        "red": "var(--red)",
+        "snowbank": "var(--snowbank)",
       },
       borderRadius: {
         lg: `var(--radius)`,
@@ -80,17 +81,23 @@ module.exports = {
       height: {
         header: "var(--header-height)",
       },
+      boxShadow: {
+        popup: "0 6px 30px 0 rgba(123, 127, 145, 0.07)",
+      },
     },
   },
   plugins: [
     function ({ addUtilities }) {
-      addUtilities({
-        '.next-hide-after': {
-          '& + *:after': {
-            display: 'none',
+      addUtilities(
+        {
+          ".next-hide-after": {
+            "& + *:after": {
+              display: "none",
+            },
           },
         },
-      }, ['responsive', 'hover']);
+        ["responsive", "hover"],
+      );
     },
   ],
 };

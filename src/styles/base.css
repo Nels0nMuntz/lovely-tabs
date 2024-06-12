@@ -1,6 +1,6 @@
 @layer base {
   body {
-    @apply bg-white font-poppins text-[14px] font-medium leading-[115%] text-grays;
+    @apply bg-off-white font-poppins text-sm font-medium leading-4 text-grays;
   }
   :root {
     --background: 0 0% 100%;
@@ -35,9 +35,15 @@
     --radius: 0.5rem;
   }
 }
+.simplebar-scrollable-x {
+  @apply pb-[9px]
+}
 .simplebar-scrollable-x .simplebar-track.simplebar-horizontal {
   @apply h-[9px] border-t border-solid border-grays-muted;
 }
 .simplebar-scrollable-x .simplebar-scrollbar.simplebar-visible:before {
   @apply bg-grays opacity-100;
+}
+.simplebar-content {
+  @apply flex flex-nowrap;
 }
