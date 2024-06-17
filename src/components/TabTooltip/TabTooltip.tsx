@@ -3,9 +3,9 @@ import { TabTooltipProps } from "./types";
 
 export const TabTooltip: React.FC<TabTooltipProps> = ({ content, children }) => {
   return (
-    <TooltipProvider delayDuration={300}>
+    <TooltipProvider delayDuration={300} >
       <Tooltip>
-        <TooltipTrigger>{children}</TooltipTrigger>
+        <TooltipTrigger asChild>{children}</TooltipTrigger>
         <TooltipContent
           side='bottom'
           sideOffset={10}
