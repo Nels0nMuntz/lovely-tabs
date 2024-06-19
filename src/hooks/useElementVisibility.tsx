@@ -14,7 +14,7 @@ export const useElementVisibility = (element: Element | null) => {
         });
       },
       {
-        root: document.getElementById('scroll-container'),
+        root: document.getElementById("scroll-container"),
         threshold: 1,
       },
     );

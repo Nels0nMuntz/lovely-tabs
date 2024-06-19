@@ -5,7 +5,7 @@ import { TabProps } from "./types";
 import { Button } from "../ui/button";
 import { TabTooltip } from "../TabTooltip/TabTooltip";
 import { TabContextMenu } from "../TabContextMenu/TabContextMenu";
-import { forwardRef, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useElementVisibility } from "@/hooks/useElementVisibility";
 import { cn } from "@/lib";
 
@@ -38,7 +38,7 @@ export const Tab: React.FC<TabProps> = ({
     transform: CSS.Translate.toString(transform),
     transition,
   };
-  const handleClickTab = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleClickTab = () => {
     onSelect(id);
   };
   const handleClose = (e: React.MouseEvent<HTMLButtonElement>) => {

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { useNavigate } from "react-router-dom";
 import {
@@ -22,7 +22,6 @@ import {
 } from "@dnd-kit/sortable";
 import { useSelectedTabContext } from "@/contexts";
 import { TabGroupProps } from "./types";
-import { Tab as ITab } from "../Tab/types";
 import { Tab } from "../Tab/Tab";
 
 const dropAnimationConfig: DropAnimation = {
@@ -69,7 +68,6 @@ export const TabGroup: React.FC<TabGroupProps> = ({
   );
 
   const getIndex = (id: string) => items.findIndex((item) => item.id === id);
-  const getPosition = (id: string) => getIndex(id) + 1;
   const activeIndex = activeId ? getIndex(activeId) : -1;
   const activeItem = items[activeIndex];
 
@@ -80,7 +78,7 @@ export const TabGroup: React.FC<TabGroupProps> = ({
     setActiveId(active.id as string);
     setSelectedTabId(active.id as string);
   };
-  const handleDragEnd = ({ active, over }: DragEndEvent) => {
+  const handleDragEnd = ({ over }: DragEndEvent) => {
     setActiveId(null);
 
     if (over) {

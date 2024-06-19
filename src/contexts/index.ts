@@ -1,1 +1,4 @@
-export { SelectedTabContextProvider, useSelectedTabContext } from './SelectedTabContext/SelectedTabContext'
+export {
+  SelectedTabContextProvider,
+  useSelectedTabContext,
+} from "./SelectedTabContext/SelectedTabContext";

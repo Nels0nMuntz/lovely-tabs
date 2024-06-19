@@ -1,4 +1,3 @@
-import { UniqueIdentifier } from "@dnd-kit/core";
 import { IconName } from "../Icon/types";
 
 export type UniqueId = string;

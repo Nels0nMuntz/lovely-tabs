@@ -1,3 +1,3 @@
 export const isElementScrollable = (element: HTMLElement) => {
-  return element.scrollWidth > element.clientWidth
-} 
+  return element.scrollWidth > element.clientWidth;
+};

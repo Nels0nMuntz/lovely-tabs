@@ -1,4 +1,4 @@
-import { Tab } from "@/components"
+import { Tab } from "@/components";
 
 export const PINNED_TABS: Tab[] = [
   {
@@ -11,7 +11,7 @@ export const PINNED_TABS: Tab[] = [
     title: "Dashboard",
     icon: "dashboard",
   },
-]
+];
 
 export const UNPINNED_TABS: Tab[] = [
   {
@@ -74,4 +74,4 @@ export const UNPINNED_TABS: Tab[] = [
     title: "Rechn",
     icon: "rechn",
   },
-]
+];

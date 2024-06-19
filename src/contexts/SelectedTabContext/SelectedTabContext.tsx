@@ -8,7 +8,7 @@ export const SelectedTabContextProvider: React.FC<SelectedTabContextProviderProp
   children,
 }) => {
   const location = useLocation();
-  const tabId = location.pathname.replace(/\//g, '');  
+  const tabId = location.pathname.replace(/\//g, "");
   const [selectedTabId, setSelectedTabId] = useState<string | null>(tabId);
   return (
     <SelectedTabContext.Provider value={{ selectedTabId, setSelectedTabId }}>
