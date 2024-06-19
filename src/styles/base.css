@@ -35,13 +35,13 @@
     --radius: 0.5rem;
   }
 }
-.simplebar-scrollable-x {
+/* .simplebar-scrollable-x {
   @apply pb-[9px]
+} */
+.simplebar-track.simplebar-horizontal {
+  @apply h-horizontal-scrollbar border-t border-solid border-grays-muted;
 }
-.simplebar-scrollable-x .simplebar-track.simplebar-horizontal {
-  @apply h-[9px] border-t border-solid border-grays-muted;
-}
-.simplebar-scrollable-x .simplebar-scrollbar.simplebar-visible:before {
+.simplebar-scrollbar.simplebar-visible:before {
   @apply bg-grays opacity-100;
 }
 .simplebar-content {
