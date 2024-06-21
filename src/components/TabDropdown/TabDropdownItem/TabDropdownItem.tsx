@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib";
 import { TabDropdownItemProps } from "./types";
+import { Link } from "react-router-dom";
 
 export const TabDropdownItem: React.FC<TabDropdownItemProps> = ({ tab, onClose }) => {
   const [highlighted, setHighlighted] = useState(false);
@@ -16,8 +17,8 @@ export const TabDropdownItem: React.FC<TabDropdownItemProps> = ({ tab, onClose }
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <Button
-        variant='ghost'
+      <Link
+        to={`/${tab.id}`}
         className={cn(
           "flex h-auto w-full items-center gap-x-2.5 bg-white p-[15px] pr-10 text-grays hover:bg-white",
           highlighted && "bg-white text-grays-dark",
@@ -27,7 +28,7 @@ export const TabDropdownItem: React.FC<TabDropdownItemProps> = ({ tab, onClose }
         <span className='flex-grow overflow-hidden text-ellipsis whitespace-nowrap text-left leading-4 transition-colors duration-100'>
           {tab.title}
         </span>
-      </Button>
+      </Link>
       <Button
         variant='link'
         size='icon'

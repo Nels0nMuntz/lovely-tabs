@@ -23,6 +23,7 @@ import {
 import { useSelectedTabContext } from "@/contexts";
 import { TabGroupProps } from "./types";
 import { Tab } from "../Tab/Tab";
+import { TabContextMenu } from "../TabContextMenu/TabContextMenu";
 
 const dropAnimationConfig: DropAnimation = {
   sideEffects: defaultDropAnimationSideEffects({
@@ -115,19 +116,24 @@ export const TabGroup: React.FC<TabGroupProps> = ({
     >
       <SortableContext items={items} strategy={horizontalListSortingStrategy}>
         {items.map((tab, index) => (
-          <Tab
+          <TabContextMenu
+            title={pinned ? "Tab lösen" : "Tab anpinnen"}
+            onClick={pinned ? () => onUnpin(tab.id) : () => onPin(tab.id)}
             key={tab.id}
-            {...tab}
-            onChangeTabVisibility={onChangeTabVisibility}
-            active={tab.id === activeId}
-            selected={tab.id === selectedTabId}
-            pinned={pinned}
-            index={index}
-            onSelect={handleSelectTab}
-            onClose={handleCloseTab}
-            onPin={onPin}
-            onUnpin={onUnpin}
-          />
+          >
+            <Tab
+              {...tab}
+              onChangeTabVisibility={onChangeTabVisibility}
+              active={tab.id === activeId}
+              selected={tab.id === selectedTabId}
+              pinned={pinned}
+              index={index}
+              onSelect={handleSelectTab}
+              onClose={handleCloseTab}
+              onPin={onPin}
+              onUnpin={onUnpin}
+            />
+          </TabContextMenu>
         ))}
       </SortableContext>
       {createPortal(

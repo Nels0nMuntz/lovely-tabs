@@ -10,7 +10,7 @@ import { Icon } from "../Icon/Icon";
 export const TabContextMenu: React.FC<TabContextMenuProps> = ({ title, onClick, children }) => {
   return (
     <ContextMenu>
-      <ContextMenuTrigger asChild>{children}</ContextMenuTrigger>
+      <ContextMenuTrigger>{children}</ContextMenuTrigger>
       <ContextMenuContent
         alignOffset={20}
         collisionPadding={{ top: 20, left: 20 }}

@@ -1,10 +1,9 @@
-import { Icon } from "../Icon/Icon";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { Icon } from "../Icon/Icon";
 import { TabProps } from "./types";
 import { Button } from "../ui/button";
 import { TabTooltip } from "../TabTooltip/TabTooltip";
-// import { TabContextMenu } from "../TabContextMenu/TabContextMenu";
 import { useEffect, useRef, useState } from "react";
 import { useElementVisibility } from "@/hooks/useElementVisibility";
 import { cn } from "@/lib";
@@ -20,14 +19,12 @@ export const Tab: React.FC<TabProps> = ({
   index,
   onSelect,
   onClose,
-  // onPin,
-  // onUnpin,
   onChangeTabVisibility,
 }) => {
   const tabRef = useRef<HTMLDivElement | null>(null);
   const isVisible = useElementVisibility(tabRef.current);
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
-  const [hover, setHover] = useState(false);
+  const [accented, setAccented] = useState(false);
   useEffect(() => {
     if (onChangeTabVisibility) {
       onChangeTabVisibility({ id, icon, title }, index, isVisible);
@@ -42,19 +39,15 @@ export const Tab: React.FC<TabProps> = ({
     onSelect(id);
   };
   const handleClose = (e: React.MouseEvent<HTMLButtonElement>) => {
-    onClose(id);
     e.stopPropagation();
+    onClose(id);
   };
-  // const handlePin = () => onPin(id);
-  // const handleUnpin = () => onUnpin(id);
 
-  const handleMouseEnter = () => setHover(true);
-  const handleMouseLeave = () => setHover(false);
+  const handleMouseEnter = () => setAccented(true);
+  const handleMouseLeave = () => setAccented(false);
+  const handleFocus = () => setAccented(true);
+  const handleBlur = () => setAccented(false);
   const tab = (
-    // <TabContextMenu
-    //   title={pinned ? "Tab lösen" : "Tab anpinnen"}
-    //   onClick={pinned ? handleUnpin : handlePin}
-    // >
     <div className='group/tab relative' ref={tabRef}>
       <div
         {...attributes}
@@ -77,10 +70,12 @@ export const Tab: React.FC<TabProps> = ({
           active && "bg-blue-light text-grays-dark after:bg-blue-light",
           dragging &&
             "relative z-10 cursor-grabbing bg-grays text-white before:hidden hover:bg-grays hover:text-white",
-          hover && "bg-blue-light text-grays-dark after:hidden",
+            accented && "bg-blue-light text-grays-dark after:hidden",
         )}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
         onClick={handleClickTab}
       >
         <Icon name={icon} className='h-4 w-4 flex-shrink-0' />
@@ -100,8 +95,7 @@ export const Tab: React.FC<TabProps> = ({
           variant='link'
           size='icon'
           className={cn(
-            "absolute right-2.5 top-1/2 z-[1] h-auto w-auto flex-shrink-0 -translate-y-1/2 text-red opacity-0",
-            hover && "opacity-100",
+            "absolute right-2.5 top-1/2 z-[1] h-auto w-auto flex-shrink-0 -translate-y-1/2 text-red opacity-0 group-hover/tab:opacity-100",
           )}
           onClick={handleClose}
           onMouseEnter={handleMouseEnter}
@@ -112,7 +106,6 @@ export const Tab: React.FC<TabProps> = ({
         </Button>
       )}
     </div>
-    // </TabContextMenu>
   );
   const tooltipContent = (
     <div className='flex items-center gap-x-2.5 text-sm leading-4 text-grays-dark'>

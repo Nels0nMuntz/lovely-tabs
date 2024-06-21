@@ -7,7 +7,6 @@ export const ScrollableTabContainer: React.FC<ScrollableTabContainerProps> = ({
   isShadowVisible,
   children,
 }) => {
-  console.log({ isShadowVisible });
   return (
     <SimpleBar
       id='scroll-container'
