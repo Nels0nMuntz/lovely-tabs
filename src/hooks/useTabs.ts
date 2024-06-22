@@ -40,7 +40,7 @@ export const useTabs = () => {
   const unpinTab = (id: string) => {
     const item = pinnedTabs.find((item) => item.id === id);
     setPinnedTabs((items) => items.filter((item) => item.id !== id));
-    setUnpinnedTabs((items) => [...items, item]);
+    setUnpinnedTabs((items) => [item, ...items]);
   };
   const closeTab = (id: string) =>
     setUnpinnedTabs((items) => items.filter((item) => item.id !== id));

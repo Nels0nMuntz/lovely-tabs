@@ -122,16 +122,11 @@ export const TabGroup: React.FC<TabGroupProps> = ({
           {activeId ? (
             <Tab
               key={activeId}
-              // selected={activeId === selectedTabId}
-              // pinned={pinned}
-              onSelect={handleSelectTab}
-              onClose={handleCloseTab}
               icon={activeItem.icon}
               id={activeItem.id}
               title={activeItem.title}
               dragging={true}
-              // onPin={onPin}
-              // onUnpin={onUnpin}
+              pinned={pinned}
             />
           ) : null}
         </DragOverlay>,

@@ -27,10 +27,10 @@ export const Tab: React.FC<TabProps> = ({
   const [accented, setAccented] = useState(false);
   const { onChangeTabVisibility } = useHiddenTabsContext();
   useEffect(() => {
-    if (onChangeTabVisibility && !pinned) {
+    if (onChangeTabVisibility && !pinned && !dragging) {
       onChangeTabVisibility({ id, icon, title }, index, isVisible);
     }
-  }, [isVisible, pinned]);
+  }, [isVisible, pinned, dragging]);
 
   const style = {
     transform: CSS.Translate.toString(transform),
@@ -55,7 +55,7 @@ export const Tab: React.FC<TabProps> = ({
         aria-controls={`${id}-tabpanel`}
         tabIndex={0}
         className={cn(
-          "relative flex h-12 flex-shrink-0 origin-center cursor-pointer touch-manipulation select-none items-center gap-x-2.5 whitespace-nowrap px-5 py-4 leading-4 text-grays transition-colors duration-150 before:absolute before:left-0 before:top-0 before:h-[2px] before:w-full before:rounded-[2px_2px_0_0] before:transition-colors  before:duration-150  before:content-[''] after:absolute after:left-0 after:top-1/2 after:h-4 after:w-px after:-translate-y-1/2 focus-visible:bg-blue-light focus-visible:text-grays-dark focus-visible:outline-none",
+          "relative flex h-12 flex-shrink-0 origin-center cursor-pointer touch-none select-none items-center gap-x-2.5 whitespace-nowrap px-5 py-4 leading-4 text-grays transition-colors duration-150 before:absolute before:left-0 before:top-0 before:h-[2px] before:w-full before:rounded-[2px_2px_0_0] before:transition-colors  before:duration-150  before:content-[''] after:absolute after:left-0 after:top-1/2 after:h-4 after:w-px after:-translate-y-1/2 focus-visible:bg-blue-light focus-visible:text-grays-dark focus-visible:outline-none",
           selected && "bg-blue-light text-grays-dark after:bg-blue-light",
           selected && !pinned && !active && "before:bg-blue",
           selected && pinned && !active && "before:bg-grays",
@@ -108,5 +108,5 @@ export const Tab: React.FC<TabProps> = ({
       {title}
     </div>
   );
-  return pinned ? <TabTooltip content={tooltipContent}>{tab}</TabTooltip> : tab;
+  return pinned && !dragging ? <TabTooltip content={tooltipContent}>{tab}</TabTooltip> : tab;
 };
