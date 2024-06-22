@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import { Header } from "../Header/Header";
 import { Sidebar } from "../Sidebar/Sidebar";
 import { TabList } from "../TabList/TabList";
+import { RootProvider as Providers } from "@/providers";
 
 export const MainLayout: React.FC = () => {
   return (
@@ -10,7 +11,9 @@ export const MainLayout: React.FC = () => {
       <div className='flex w-full flex-grow  flex-col sm:w-[calc(100vw-var(--sidebar-width))]'>
         <Header />
         <main className='flex w-full flex-grow flex-col'>
-          <TabList />
+          <Providers>
+            <TabList />
+          </Providers>
           <section className='flex-grow bg-blue-light p-6'>
             <Outlet />
           </section>

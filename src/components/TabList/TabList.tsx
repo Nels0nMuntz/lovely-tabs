@@ -1,60 +1,65 @@
-import { useRef, useState } from "react";
-import { useHiddenTabs, useTabs } from "@/hooks";
+import { useRef } from "react";
+import { useHiddenTabsContext, useSelectedTabContext, useTabsContext } from "@/hooks";
 import { TabGroup } from "../TabGroup/TabGroup";
-import { SelectedTabContextProvider } from "@/contexts";
 import { TabDropdown } from "../TabDropdown/TabDropdown";
-import { Tab } from "../Tab/types";
 import { StickyTabContainer } from "../TabContainer/StickyTabContainer";
 import { ScrollableTabContainer } from "../TabContainer/ScrollableTabContainer";
 
 export const TabList: React.FC = () => {
+  const { selectedTabId, setSelectedTabId } = useSelectedTabContext();
   const { pinnedTabs, unpinnedTabs, movePinnedTab, moveUnpinnedTab, pinTab, unpinTab, closeTab } =
-    useTabs();
-  const { hiddenTabs, onChangeTabVisibility, closeHiddenTab } = useHiddenTabs();
-  const [isFirstTabVisible, setIsFirstTabVisible] = useState(true);
+    useTabsContext();
+  const { hiddenTabs, isFirstTabHidden, closeHiddenTab } = useHiddenTabsContext();
   const isScrollbarVisible = Boolean(hiddenTabs.length);
+  const getTabIndex = (id: string) => unpinnedTabs.findIndex((tab) => tab.id === id);
 
   const tablistRef = useRef<HTMLDivElement | null>(null);
-  const handleCloseHiddenTab = (id: string) => {
+  const handleCloseTab = (id: string) => {
+    if (id === selectedTabId) {
+      const currentTabIndex = getTabIndex(id);
+      const nextUnpinnedTab = unpinnedTabs[currentTabIndex + 1];
+      const prevUnpinnedTab = unpinnedTabs[currentTabIndex - 1];
+      const pinnedTab = pinnedTabs[pinnedTabs.length - 1];
+      if (nextUnpinnedTab) {
+        setSelectedTabId(nextUnpinnedTab.id);
+      } else if (prevUnpinnedTab) {
+        setSelectedTabId(prevUnpinnedTab.id);
+      } else if (pinnedTab) {
+        setSelectedTabId(pinnedTab.id);
+      } else {
+        setSelectedTabId("");
+      }
+    }
     closeHiddenTab(id);
     closeTab(id);
   };
-  const handleChangeTabVisibility = (tab: Tab, index: number, isVisible: boolean) => {
-    onChangeTabVisibility(tab, isVisible);
-    if (index === 0) {
-      setIsFirstTabVisible(isVisible);
-    }
-  };
 
   return (
-    <SelectedTabContextProvider>
-      <div ref={tablistRef}>
-        <div
-          className='relative grid w-full grid-cols-[auto,1fr] border-t border-solid border-grays-muted bg-off-white'
-          role='tablist'
+    <div ref={tablistRef}>
+      <div
+        className='relative grid w-full grid-cols-[auto,1fr] border-t border-solid border-grays-muted bg-off-white'
+        role='tablist'
+      >
+        <StickyTabContainer isScrollbarVisible={isScrollbarVisible}>
+          <TabGroup items={pinnedTabs} onMoveTab={movePinnedTab} onUnpin={unpinTab} pinned />
+        </StickyTabContainer>
+        <ScrollableTabContainer
+          isScrollbarVisible={isScrollbarVisible}
+          isShadowVisible={isFirstTabHidden}
         >
-          <StickyTabContainer isScrollbarVisible={isScrollbarVisible}>
-            <TabGroup items={pinnedTabs} onMoveTab={movePinnedTab} onUnpin={unpinTab} pinned />
-          </StickyTabContainer>
-          <ScrollableTabContainer
-            isScrollbarVisible={isScrollbarVisible}
-            isShadowVisible={!isFirstTabVisible}
-          >
-            <div className='flex w-full flex-nowrap'>
-              <TabGroup
-                items={unpinnedTabs}
-                onMoveTab={moveUnpinnedTab}
-                onCloseTab={closeTab}
-                onPin={pinTab}
-                onChangeTabVisibility={handleChangeTabVisibility}
-              />
-            </div>
-            {Boolean(hiddenTabs.length) && (
-              <TabDropdown items={hiddenTabs} onClose={handleCloseHiddenTab} />
-            )}
-          </ScrollableTabContainer>
-        </div>
+          <div className='flex w-full flex-nowrap'>
+            <TabGroup
+              items={unpinnedTabs}
+              onMoveTab={moveUnpinnedTab}
+              onCloseTab={handleCloseTab}
+              onPin={pinTab}
+            />
+          </div>
+          {Boolean(hiddenTabs.length) && (
+            <TabDropdown items={hiddenTabs} onClose={handleCloseTab} />
+          )}
+        </ScrollableTabContainer>
       </div>
-    </SelectedTabContextProvider>
+    </div>
   );
 };

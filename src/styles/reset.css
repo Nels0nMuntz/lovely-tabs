@@ -25,11 +25,7 @@ dl {
   list-style: none;
 }
 
-button,
-button:active,
-button:focus {
-  outline: none;
-  cursor: pointer;
+button{
   padding: 0;
 }
 

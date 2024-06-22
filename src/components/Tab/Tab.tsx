@@ -7,6 +7,7 @@ import { TabTooltip } from "../TabTooltip/TabTooltip";
 import { useEffect, useRef, useState } from "react";
 import { useElementVisibility } from "@/hooks/useElementVisibility";
 import { cn } from "@/lib";
+import { useHiddenTabsContext } from "@/hooks";
 
 export const Tab: React.FC<TabProps> = ({
   id,
@@ -19,30 +20,24 @@ export const Tab: React.FC<TabProps> = ({
   index,
   onSelect,
   onClose,
-  onChangeTabVisibility,
 }) => {
   const tabRef = useRef<HTMLDivElement | null>(null);
   const isVisible = useElementVisibility(tabRef.current);
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
   const [accented, setAccented] = useState(false);
+  const { onChangeTabVisibility } = useHiddenTabsContext();
   useEffect(() => {
-    if (onChangeTabVisibility) {
+    if (onChangeTabVisibility && !pinned) {
       onChangeTabVisibility({ id, icon, title }, index, isVisible);
     }
-  }, [isVisible]);
+  }, [isVisible, pinned]);
 
   const style = {
     transform: CSS.Translate.toString(transform),
     transition,
   };
-  const handleClickTab = () => {
-    onSelect(id);
-  };
-  const handleClose = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
-    onClose(id);
-  };
-
+  const handleClickTab = () => onSelect(id);
+  const handleClose = () => onClose(id);
   const handleMouseEnter = () => setAccented(true);
   const handleMouseLeave = () => setAccented(false);
   const handleFocus = () => setAccented(true);
@@ -70,7 +65,7 @@ export const Tab: React.FC<TabProps> = ({
           active && "bg-blue-light text-grays-dark after:bg-blue-light",
           dragging &&
             "relative z-10 cursor-grabbing bg-grays text-white before:hidden hover:bg-grays hover:text-white",
-            accented && "bg-blue-light text-grays-dark after:hidden",
+          accented && "bg-blue-light text-grays-dark after:hidden",
         )}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}

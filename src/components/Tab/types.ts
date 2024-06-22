@@ -18,5 +18,4 @@ export interface TabProps extends Tab {
   onClose: (id: string) => void;
   onPin?: (id: string) => void;
   onUnpin?: (id: string) => void;
-  onChangeTabVisibility?: (tab: Tab, index: number, isVisible: boolean) => void;
 }

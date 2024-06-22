@@ -3,16 +3,20 @@ import { useState } from "react";
 
 export const useHiddenTabs = () => {
   const [hiddenTabs, setHiddenTabs] = useState<Tab[]>([]);
-  const onChangeTabVisibility = (tab: Tab, isVisible: boolean) => {
+  const [isFirstTabHidden, setIsFirstTabHidden] = useState(false);
+  const onChangeTabVisibility = (tab: Tab, index: number, isVisible: boolean) => {
     if (isVisible) {
       setHiddenTabs((items) => items.filter((item) => item.id !== tab.id));
     } else {
       setHiddenTabs((tabs) => [tab, ...tabs]);
+    }
+    if (index === 0) {
+      setIsFirstTabHidden(!isVisible);
     }
   };
   const closeHiddenTab = (id: string) => {
     setHiddenTabs((items) => items.filter((item) => item.id !== id));
   };
 
-  return { hiddenTabs, onChangeTabVisibility, closeHiddenTab };
+  return { hiddenTabs, isFirstTabHidden, onChangeTabVisibility, closeHiddenTab };
 };

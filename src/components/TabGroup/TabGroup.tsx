@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { createPortal } from "react-dom";
-import { useNavigate } from "react-router-dom";
 import {
   DndContext,
   KeyboardSensor,
@@ -20,10 +19,10 @@ import {
   horizontalListSortingStrategy,
   sortableKeyboardCoordinates,
 } from "@dnd-kit/sortable";
-import { useSelectedTabContext } from "@/contexts";
 import { TabGroupProps } from "./types";
 import { Tab } from "../Tab/Tab";
 import { TabContextMenu } from "../TabContextMenu/TabContextMenu";
+import { useSelectedTabContext } from "@/hooks";
 
 const dropAnimationConfig: DropAnimation = {
   sideEffects: defaultDropAnimationSideEffects({
@@ -42,14 +41,9 @@ export const TabGroup: React.FC<TabGroupProps> = ({
   onCloseTab,
   onPin,
   onUnpin,
-  onChangeTabVisibility,
 }) => {
-  const navigate = useNavigate();
   const [activeId, setActiveId] = useState<string | null>(null);
   const { selectedTabId, setSelectedTabId } = useSelectedTabContext();
-  useEffect(() => {
-    navigate(`/${selectedTabId}`);
-  }, [selectedTabId]);
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
@@ -92,19 +86,7 @@ export const TabGroup: React.FC<TabGroupProps> = ({
   const handleSelectTab = (id: string) => {
     setSelectedTabId(id);
   };
-  const handleCloseTab = (id: string) => {
-    if (id === selectedTabId) {
-      const currentTabIndex = getIndex(id);
-      if (items[currentTabIndex + 1]) {
-        setSelectedTabId(items[currentTabIndex + 1].id);
-      } else if (items[currentTabIndex - 1]) {
-        setSelectedTabId(items[currentTabIndex - 1].id);
-      } else {
-        setSelectedTabId("");
-      }
-    }
-    onCloseTab(id);
-  };
+  const handleCloseTab = (id: string) => onCloseTab(id);
 
   return (
     <DndContext
@@ -123,7 +105,6 @@ export const TabGroup: React.FC<TabGroupProps> = ({
           >
             <Tab
               {...tab}
-              onChangeTabVisibility={onChangeTabVisibility}
               active={tab.id === activeId}
               selected={tab.id === selectedTabId}
               pinned={pinned}

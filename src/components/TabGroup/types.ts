@@ -8,5 +8,4 @@ export interface TabGroupProps {
   onPin?: (id: string) => void;
   onUnpin?: (id: string) => void;
   onCloseTab?: (id: string) => void;
-  onChangeTabVisibility?: (tab: Tab, index: number, isVisible: boolean) => void;
 }
