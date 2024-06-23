@@ -13,6 +13,7 @@ import {
   defaultDropAnimationSideEffects,
   DragStartEvent,
   DragEndEvent,
+  MouseSensor,
 } from "@dnd-kit/core";
 import {
   SortableContext,
@@ -45,20 +46,20 @@ export const TabGroup: React.FC<TabGroupProps> = ({
   const [activeId, setActiveId] = useState<string | null>(null);
   const { selectedTabId, setSelectedTabId } = useSelectedTabContext();
   const sensors = useSensors(
-    useSensor(PointerSensor, {
+    useSensor(MouseSensor, {
       activationConstraint: {
         delay: 100,
         tolerance: 5,
       },
     }),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    }),
     useSensor(TouchSensor, {
       activationConstraint: {
         delay: 2000,
-        tolerance: 5,
+        tolerance: 0,
       },
+    }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
     }),
   );
 
