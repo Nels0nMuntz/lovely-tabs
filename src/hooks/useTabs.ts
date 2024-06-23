@@ -1,23 +1,21 @@
 import { useEffect, useState } from "react";
 import { arrayMove } from "@dnd-kit/sortable";
-import { useLocalStorage } from "./useLocalStorage";
 import { PINNED_TABS, UNPINNED_TABS } from "@/constants";
 import { Tab } from "@/components";
+import { useLocalStorageState } from "./useLocalStorageState";
 
 export const useTabs = () => {
-  const [storedPinnedTabs, storPinnedTabs] = useLocalStorage({
+  const [storedPinnedTabs, storPinnedTabs] = useLocalStorageState({
     key: "PINNED_TABS",
     initialValue: PINNED_TABS,
   });
-  const [storedUnpinnedTabs, storUnpinnedTabs] = useLocalStorage({
+  const [storedUnpinnedTabs, storUnpinnedTabs] = useLocalStorageState({
     key: "UNPINNED_TABS",
     initialValue: UNPINNED_TABS,
   });
 
-  const [pinnedTabs, setPinnedTabs] = useState<Tab[]>(PINNED_TABS);
-  const [unpinnedTabs, setUnpinnedTabs] = useState<Tab[]>(UNPINNED_TABS);
-  // const [pinnedTabs, setPinnedTabs] = useState<Tab[]>(storedPinnedTabs);
-  // const [unpinnedTabs, setUnpinnedTabs] = useState<Tab[]>(storedUnpinnedTabs);
+  const [pinnedTabs, setPinnedTabs] = useState<Tab[]>(storedPinnedTabs);
+  const [unpinnedTabs, setUnpinnedTabs] = useState<Tab[]>(storedUnpinnedTabs);
 
   useEffect(() => {
     storPinnedTabs(pinnedTabs);
