@@ -43,8 +43,8 @@ export const Tab: React.FC<TabProps> = ({
   const handleFocus = () => setAccented(true);
   const handleBlur = () => setAccented(false);
   const tab = (
-    <div className='group/tab relative' ref={tabRef}>
-      <div
+    <span className='group/tab relative' ref={tabRef}>
+      <span
         {...attributes}
         {...listeners}
         ref={setNodeRef}
@@ -84,7 +84,7 @@ export const Tab: React.FC<TabProps> = ({
             {title}
           </span>
         ) : null}
-      </div>
+      </span>
       {!pinned && (
         <Button
           variant='link'
@@ -100,7 +100,7 @@ export const Tab: React.FC<TabProps> = ({
           <span className='sr-only'>close tab</span>
         </Button>
       )}
-    </div>
+    </span>
   );
   const tooltipContent = (
     <div className='flex items-center gap-x-2.5 text-sm leading-4 text-grays-dark'>
