@@ -8,6 +8,8 @@ import { TabContextMenuProps } from "./types";
 import { Icon } from "../Icon/Icon";
 
 export const TabContextMenu: React.FC<TabContextMenuProps> = ({ title, onClick, children }) => {
+  const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints;
+  if (isTouchDevice) return children;
   return (
     <ContextMenu>
       <ContextMenuTrigger>{children}</ContextMenuTrigger>

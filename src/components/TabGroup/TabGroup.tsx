@@ -3,7 +3,6 @@ import { createPortal } from "react-dom";
 import {
   DndContext,
   KeyboardSensor,
-  PointerSensor,
   TouchSensor,
   closestCenter,
   useSensor,
@@ -13,6 +12,7 @@ import {
   defaultDropAnimationSideEffects,
   DragStartEvent,
   DragEndEvent,
+  MouseSensor,
 } from "@dnd-kit/core";
 import {
   SortableContext,
@@ -45,7 +45,7 @@ export const TabGroup: React.FC<TabGroupProps> = ({
   const [activeId, setActiveId] = useState<string | null>(null);
   const { selectedTabId, setSelectedTabId } = useSelectedTabContext();
   const sensors = useSensors(
-    useSensor(PointerSensor, {
+    useSensor(MouseSensor, {
       activationConstraint: {
         delay: 100,
         tolerance: 5,
@@ -57,7 +57,7 @@ export const TabGroup: React.FC<TabGroupProps> = ({
     useSensor(TouchSensor, {
       activationConstraint: {
         delay: 2000,
-        tolerance: 5,
+        tolerance: 0,
       },
     }),
   );
